@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,11 +20,20 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={cn(inter.className, "flex flex-col min-h-screen")}>
-                <Navbar />
-                <div className="container mx-auto flex-1 py-10">{children}</div>
-                <Footer />
-            </body>
+            <UserProvider>
+                <body
+                    className={cn(
+                        inter.className,
+                        "flex flex-col min-h-screen"
+                    )}
+                >
+                    <Navbar />
+                    <div className="container mx-auto flex-1 py-10">
+                        {children}
+                    </div>
+                    <Footer />
+                </body>
+            </UserProvider>
         </html>
     );
 }
