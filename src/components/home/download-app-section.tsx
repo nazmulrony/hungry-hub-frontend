@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function DownloadAppSection() {
     return (
-        <div className="grid md:grid-cols-2 gap-5">
+        <div className="grid md:grid-cols-2 gap-5 py-10 lg:py-20 ">
             <Image
                 alt="landing-image"
                 src="/images/landing.png"

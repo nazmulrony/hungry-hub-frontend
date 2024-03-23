@@ -1,4 +1,4 @@
-import { Menu } from "lucide-react";
+import { Menu, User } from "lucide-react";
 import {
     Sheet,
     SheetContent,
@@ -8,8 +8,13 @@ import {
 } from "./ui/sheet";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { Avatar, AvatarImage } from "./ui/avatar";
+import MobileNavLinks from "./mobile-nav-links";
+import Link from "next/link";
 
 export const MobileNavMenu = () => {
+    const { user } = useUser();
     return (
         <Sheet>
             <SheetTrigger>
@@ -18,12 +23,37 @@ export const MobileNavMenu = () => {
             <SheetContent className="space-y-3">
                 <SheetHeader>
                     <SheetTitle>
-                        Welcome to Quick
-                        <span className="text-orange-500">Crave</span>
+                        {user?.email ? (
+                            <div className="flex items-center gap-1">
+                                {user?.picture ? (
+                                    <Avatar>
+                                        <AvatarImage src={user.picture} />
+                                    </Avatar>
+                                ) : (
+                                    <User />
+                                )}
+                                {user.nickname}
+                            </div>
+                        ) : (
+                            <>
+                                Welcome to Quick
+                                <span className="text-orange-500">Crave</span>
+                            </>
+                        )}
                     </SheetTitle>
                 </SheetHeader>
-                <Separator />
-                <Button className="w-full bg-orange-500">Login</Button>
+                <Separator className="" />
+                <div>
+                    {user?.email ? (
+                        <MobileNavLinks />
+                    ) : (
+                        <Link href="/api/auth/login">
+                            <Button className="w-full bg-orange-500 ">
+                                Login
+                            </Button>
+                        </Link>
+                    )}
+                </div>
             </SheetContent>
         </Sheet>
     );
