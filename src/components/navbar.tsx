@@ -1,15 +1,24 @@
 "use client";
 
-import Link from "next/link";
-import { Button } from "./ui/button";
-import { MobileNavMenu } from "./mobile-nav-menu";
+import { useCreateCurrentUser } from "@/api-services/userApi";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { AfterCallback, handleLogin } from "@auth0/nextjs-auth0";
+import Link from "next/link";
+import { useEffect } from "react";
+import { MobileNavMenu } from "./mobile-nav-menu";
+import { Button } from "./ui/button";
 import UsernameMenu from "./username-menu";
 
 export default function Navbar() {
     const { user, isLoading, error } = useUser();
-    console.log(user);
+
+    const { createUser } = useCreateCurrentUser();
+
+    useEffect(() => {
+        if (user?.email && user?.sub) {
+            createUser({ auth0Id: user.sub, email: user.email });
+        }
+    }, [createUser, user]);
+
     return (
         <div className="shadow-md shadow-gray-200 py-4">
             <div className="container mx-auto flex justify-between items-center">

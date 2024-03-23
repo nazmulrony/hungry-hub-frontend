@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 
-const BASE_URL = process.env.API_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 type CreateUserRequest = {
     auth0Id: String;
@@ -9,6 +9,7 @@ type CreateUserRequest = {
 
 export const useCreateCurrentUser = () => {
     const createCurrentUserRequest = async (user: CreateUserRequest) => {
+        console.log("User", user);
         const response = await fetch(`${BASE_URL}/users`, {
             method: "POST",
             headers: {
@@ -16,6 +17,7 @@ export const useCreateCurrentUser = () => {
             },
             body: JSON.stringify(user),
         });
+        console.log({ response });
         if (!response.ok) {
             throw new Error("Failed to create user");
         }

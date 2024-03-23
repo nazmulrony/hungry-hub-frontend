@@ -1,15 +1,10 @@
-// import { handleAuth } from "@auth0/nextjs-auth0";
-
-// export const GET = handleAuth();
-
-import { useCreateCurrentUser } from "@/api-services/userApi";
 import {
-    handleAuth,
-    handleCallback,
+    AfterCallbackAppRoute,
     AppRouteHandlerFnContext,
     Session,
     getSession,
-    AfterCallbackAppRoute,
+    handleAuth,
+    handleCallback,
 } from "@auth0/nextjs-auth0";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -17,7 +12,6 @@ const afterCallback: AfterCallbackAppRoute = (
     req: NextRequest,
     session: Session
 ) => {
-    const { createUser } = useCreateCurrentUser();
     if (session.user) {
         return session;
     }
