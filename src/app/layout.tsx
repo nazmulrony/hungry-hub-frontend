@@ -32,7 +32,7 @@ export default function RootLayout({
                         )}
                     >
                         <Navbar />
-                        <div className="container mx-auto flex-1 py-10">
+                        <div className="container mx-auto flex-1 py-10 ">
                             {children}
                         </div>
                         <Footer />

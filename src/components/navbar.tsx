@@ -11,14 +11,6 @@ import UsernameMenu from "./username-menu";
 export default function Navbar() {
     const { user, isLoading, error } = useUser();
 
-    const { createUser } = useCreateCurrentUser();
-
-    useEffect(() => {
-        if (user?.email && user?.sub) {
-            createUser({ auth0Id: user.sub, email: user.email });
-        }
-    }, [createUser, user]);
-
     return (
         <div className="shadow-md shadow-gray-200 py-4">
             <div className="container mx-auto flex justify-between items-center">
