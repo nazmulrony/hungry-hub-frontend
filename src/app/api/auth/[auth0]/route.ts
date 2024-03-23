@@ -2,6 +2,7 @@
 
 // export const GET = handleAuth();
 
+import { useCreateCurrentUser } from "@/api-services/userApi";
 import {
     handleAuth,
     handleCallback,
@@ -16,7 +17,7 @@ const afterCallback: AfterCallbackAppRoute = (
     req: NextRequest,
     session: Session
 ) => {
-    console.log("User Authe");
+    const { createUser } = useCreateCurrentUser();
     if (session.user) {
         return session;
     }
