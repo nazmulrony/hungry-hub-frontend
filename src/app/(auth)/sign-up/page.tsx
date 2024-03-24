@@ -2,9 +2,9 @@ import Image from "next/image";
 import vector from "@/../public/images/auth-vector.png";
 import SignUpForm from "@/components/signup/signup-form";
 
-export default function page() {
+export default function SignUpPage() {
     return (
-        <div className="grid md:grid-cols-2">
+        <div className="grid md:grid-cols-2 gap-10 md:gap-0 ">
             <div className="grid place-items-center">
                 <Image
                     src={vector}
