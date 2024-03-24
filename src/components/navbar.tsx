@@ -24,7 +24,7 @@ export default function Navbar() {
                     {user?.email ? (
                         <UsernameMenu />
                     ) : (
-                        <Link href={"/api/auth/login"}>
+                        <Link href={"/login"}>
                             <Button
                                 variant="ghost"
                                 className="font-bold hover:text-amber-500 hover:bg-white"

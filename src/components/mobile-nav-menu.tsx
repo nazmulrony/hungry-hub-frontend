@@ -47,7 +47,7 @@ export const MobileNavMenu = () => {
                     {user?.email ? (
                         <MobileNavLinks />
                     ) : (
-                        <Link href="/api/auth/login">
+                        <Link href="/login">
                             <Button className="w-full bg-orange-500 ">
                                 Login
                             </Button>
