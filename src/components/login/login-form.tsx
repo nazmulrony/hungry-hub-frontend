@@ -12,8 +12,10 @@ import { Button } from "../ui/button";
 import { z } from "zod";
 import { LoginSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLogin } from "@/api-services/userApi";
 
 export default function LoginForm() {
+    const { loginUser } = useLogin();
     const form = useForm({
         resolver: zodResolver(LoginSchema),
         defaultValues: {
@@ -23,8 +25,7 @@ export default function LoginForm() {
     });
 
     const handleLogin = (values: z.infer<typeof LoginSchema>) => {
-        console.log("clicked");
-        console.log({ values });
+        loginUser(values);
     };
     return (
         <div>

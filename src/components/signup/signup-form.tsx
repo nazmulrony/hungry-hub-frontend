@@ -15,8 +15,12 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { FormError } from "./form-error";
+import { useSignUp } from "@/api-services/userApi";
+import { FaSpinner } from "react-icons/fa";
 
 export default function SignUpForm() {
+    const { createUser, isError, isSuccess, isPending } = useSignUp();
+
     const form = useForm<z.infer<typeof SignUpSchema>>({
         resolver: zodResolver(SignUpSchema),
         defaultValues: {
@@ -31,8 +35,8 @@ export default function SignUpForm() {
     });
 
     const handleSignUp = (values: z.infer<typeof SignUpSchema>) => {
-        console.log("clicked");
-        console.log({ values });
+        const res = createUser(values);
+        console.log({ res });
     };
     return (
         <div className="">
@@ -114,9 +118,9 @@ export default function SignUpForm() {
 
                     <FormError message={""} />
                     <Button type="submit" className="w-full">
-                        {/* {isPending && (
+                        {isPending && (
                             <FaSpinner className="animate-spin mr-2" />
-                        )} */}
+                        )}
                         Sign Up
                     </Button>
                 </form>

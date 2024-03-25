@@ -1,5 +1,11 @@
+import Axios from "@/axios-config";
+import { LoginSchema, SignUpSchema } from "@/schemas";
 import { getSession } from "@auth0/nextjs-auth0";
 import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { redirect, useRouter } from "next/navigation";
+import { Router } from "next/router";
+import { z } from "zod";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -36,6 +42,61 @@ export const useCreateCurrentUser = () => {
 
     return {
         createUser,
+        isError,
+        isPending,
+        isSuccess,
+    };
+};
+
+export const useSignUp = () => {
+    const signUpRequest = async (user: z.infer<typeof SignUpSchema>) => {
+        try {
+            const response = await Axios.post("/users/signup", user);
+            // console.log(response);
+        } catch (error) {
+            throw new Error("Failed to create user!");
+        }
+    };
+
+    const {
+        mutateAsync: createUser,
+        isError,
+        isSuccess,
+        isPending,
+    } = useMutation({ mutationFn: signUpRequest });
+
+    return {
+        createUser,
+        isError,
+        isPending,
+        isSuccess,
+    };
+};
+
+export const useLogin = () => {
+    const router = useRouter();
+    const signInRequest = async (credentials: z.infer<typeof LoginSchema>) => {
+        try {
+            const response = await Axios.post("/users/login", credentials, {
+                headers: { Authorization: "TOken" },
+            });
+            if (response.data.status === "success") {
+                router.push("/");
+            }
+        } catch (error) {
+            throw new Error("Failed to login user!");
+        }
+    };
+
+    const {
+        mutateAsync: loginUser,
+        isError,
+        isSuccess,
+        isPending,
+    } = useMutation({ mutationFn: signInRequest });
+
+    return {
+        loginUser,
         isError,
         isPending,
         isSuccess,
