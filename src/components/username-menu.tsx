@@ -1,5 +1,5 @@
 import { selectAuth, setLogout } from "@/redux/features/authSlice";
-import { useAppSelector } from "@/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { CircleUser, LogOut, User } from "lucide-react";
 import Link from "next/link";
@@ -11,6 +11,7 @@ import {
 } from "./ui/dropdown-menu";
 
 export default function UsernameMenu() {
+    const dispatch = useAppDispatch();
     const { user } = useAppSelector(selectAuth);
     return (
         <DropdownMenu>
@@ -34,10 +35,10 @@ export default function UsernameMenu() {
 
                 <DropdownMenuItem
                     className="cursor-pointer"
-                    onClick={() => setLogout()}
+                    onClick={() => dispatch(setLogout())}
                 >
                     <LogOut className="mr-2 h-4 w-4" />
-                    <span>Logout</span>
+                    <span>Logoutt</span>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

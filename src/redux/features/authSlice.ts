@@ -34,7 +34,9 @@ const authSlice = createSlice({
             state.token = action.payload.token;
         },
         setLogout: (state) => {
-            state = initialState;
+            state.isLoggedIn = false;
+            state.user = null;
+            state.token = null;
         },
     },
 });

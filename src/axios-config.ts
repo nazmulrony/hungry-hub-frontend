@@ -1,10 +1,12 @@
 import axios from "axios";
-const token = "Bearer Token";
+import { store } from "./redux/store";
+
+const { token } = store.getState()?.auth;
 
 const Axios = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
     headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token ?? ""}`,
     },
 });
 

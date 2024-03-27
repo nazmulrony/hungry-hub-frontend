@@ -1,4 +1,11 @@
+import { selectAuth } from "@/redux/features/authSlice";
+import { useAppSelector } from "@/redux/hook";
 import { Menu, User } from "lucide-react";
+import Link from "next/link";
+import MobileNavLinks from "./mobile-nav-links";
+import { Avatar, AvatarImage } from "./ui/avatar";
+import { Button } from "./ui/button";
+import { Separator } from "./ui/separator";
 import {
     Sheet,
     SheetContent,
@@ -6,14 +13,6 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "./ui/sheet";
-import { Button } from "./ui/button";
-import { Separator } from "./ui/separator";
-import { useUser } from "@auth0/nextjs-auth0/client";
-import { Avatar, AvatarImage } from "./ui/avatar";
-import MobileNavLinks from "./mobile-nav-links";
-import Link from "next/link";
-import { useAppSelector } from "@/redux/hook";
-import { selectAuth } from "@/redux/features/authSlice";
 
 export const MobileNavMenu = () => {
     const { isLoggedIn, user } = useAppSelector(selectAuth);
@@ -46,7 +45,7 @@ export const MobileNavMenu = () => {
                 </SheetHeader>
                 <Separator className="" />
                 <div>
-                    {user?.email ? (
+                    {isLoggedIn ? (
                         <MobileNavLinks />
                     ) : (
                         <Link href="/login">

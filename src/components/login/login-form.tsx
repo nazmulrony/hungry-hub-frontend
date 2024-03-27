@@ -18,11 +18,13 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { useRouter } from "next/navigation";
+import { store } from "@/redux/store";
 
 export default function LoginForm() {
     const dispatch = useAppDispatch();
     const router = useRouter();
-
+    const { token } = store.getState()?.auth;
+    console.log({ token });
     const { mutateAsync: loginUser, isPending } = useLogin();
 
     const form = useForm({
