@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function LoginPage() {
     return (
-        <div className="grid lg:grid-cols-2 gap-10 md:gap-0   min-h-[70vh]">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-0   min-h-[70vh]">
             <div className="grid place-items-center ">
                 <Image
                     src={vector}

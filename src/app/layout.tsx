@@ -22,20 +22,21 @@ export default function RootLayout({
     return (
         <html lang="en">
             <QueryProvider>
-                <ReduxProvider>
-                    <body
-                        className={cn(
-                            inter.className,
-                            "flex flex-col min-h-screen"
-                        )}
-                    >
+                <body
+                    className={cn(
+                        inter.className,
+                        "flex flex-col min-h-screen"
+                    )}
+                    suppressHydrationWarning={true}
+                >
+                    <ReduxProvider>
                         <Navbar />
                         <div className="container mx-auto flex-1 justify-between py-10  ">
                             {children}
                         </div>
                         <Footer />
-                    </body>
-                </ReduxProvider>
+                    </ReduxProvider>
+                </body>
             </QueryProvider>
         </html>
     );

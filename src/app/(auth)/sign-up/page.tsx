@@ -4,7 +4,7 @@ import SignUpForm from "@/components/signup/signup-form";
 
 export default function SignUpPage() {
     return (
-        <div className="grid lg:grid-cols-2 gap-10 md:gap-0 min-h-[70vh]">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-0 min-h-[70vh]">
             <div className="grid place-items-center">
                 <Image
                     src={vector}

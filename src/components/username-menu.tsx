@@ -1,4 +1,5 @@
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { selectAuth, setLogout } from "@/redux/features/authSlice";
+import { useAppSelector } from "@/redux/hook";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { CircleUser, LogOut, User } from "lucide-react";
 import Link from "next/link";
@@ -10,14 +11,14 @@ import {
 } from "./ui/dropdown-menu";
 
 export default function UsernameMenu() {
-    const { user } = useUser();
+    const { user } = useAppSelector(selectAuth);
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-1 font-semibold hover:text-orange-500 transition outline-none">
-                {user?.nickname}
-                {user?.picture ? (
+                {user?.name}
+                {user?.photo ? (
                     <Avatar>
-                        <AvatarImage src={user.picture} />
+                        <AvatarImage src={user.photo} />
                     </Avatar>
                 ) : (
                     <CircleUser />
@@ -30,12 +31,14 @@ export default function UsernameMenu() {
                         <span>User Profile</span>
                     </DropdownMenuItem>
                 </Link>
-                <Link href="/api/auth/logout">
-                    <DropdownMenuItem className="cursor-pointer">
-                        <LogOut className="mr-2 h-4 w-4" />
-                        <span>Logout</span>
-                    </DropdownMenuItem>
-                </Link>
+
+                <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={() => setLogout()}
+                >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Logout</span>
+                </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     );

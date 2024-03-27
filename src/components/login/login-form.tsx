@@ -1,6 +1,6 @@
 import { useLogin } from "@/api-services/userApi";
-import { selectAuth } from "@/redux/features/authSlice";
-import { useAppSelector } from "@/redux/hook";
+import { selectAuth, setUser } from "@/redux/features/authSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { LoginSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -17,12 +17,14 @@ import {
     FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
-    const auth = useAppSelector(selectAuth);
-    console.log(auth);
+    const dispatch = useAppDispatch();
+    const router = useRouter();
 
-    const { loginUser, isPending } = useLogin();
+    const { mutateAsync: loginUser, isPending } = useLogin();
+
     const form = useForm({
         resolver: zodResolver(LoginSchema),
         defaultValues: {
@@ -31,8 +33,12 @@ export default function LoginForm() {
         },
     });
 
-    const handleLogin = (values: z.infer<typeof LoginSchema>) => {
-        loginUser(values);
+    const handleLogin = async (values: z.infer<typeof LoginSchema>) => {
+        const res = await loginUser(values);
+        if (res.status === "success") {
+            dispatch(setUser({ token: res.token, user: res.data.user }));
+            router.push("/");
+        }
     };
     return (
         <div className="my-auto">

@@ -74,31 +74,14 @@ export const useSignUp = () => {
 };
 
 export const useLogin = () => {
-    const router = useRouter();
     const signInRequest = async (credentials: z.infer<typeof LoginSchema>) => {
         try {
-            const response = await Axios.post("/users/login", credentials, {
-                headers: { Authorization: "TOken" },
-            });
-            if (response.data.status === "success") {
-                router.push("/");
-            }
+            const response = await Axios.post("/users/login", credentials, {});
+            return response.data;
         } catch (error) {
             throw new Error("Failed to login user!");
         }
     };
 
-    const {
-        mutateAsync: loginUser,
-        isError,
-        isSuccess,
-        isPending,
-    } = useMutation({ mutationFn: signInRequest });
-
-    return {
-        loginUser,
-        isError,
-        isPending,
-        isSuccess,
-    };
+    return useMutation({ mutationFn: signInRequest });
 };
