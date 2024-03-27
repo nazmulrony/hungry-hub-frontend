@@ -12,9 +12,11 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import MobileNavLinks from "./mobile-nav-links";
 import Link from "next/link";
+import { useAppSelector } from "@/redux/hook";
+import { selectAuth } from "@/redux/features/authSlice";
 
 export const MobileNavMenu = () => {
-    const { user } = useUser();
+    const { isLoggedIn, user } = useAppSelector(selectAuth);
     return (
         <Sheet>
             <SheetTrigger>
@@ -23,16 +25,16 @@ export const MobileNavMenu = () => {
             <SheetContent className="space-y-3">
                 <SheetHeader>
                     <SheetTitle>
-                        {user?.email ? (
+                        {isLoggedIn ? (
                             <div className="flex items-center gap-1">
-                                {user?.picture ? (
+                                {user?.photo ? (
                                     <Avatar>
-                                        <AvatarImage src={user.picture} />
+                                        <AvatarImage src={user?.photo} />
                                     </Avatar>
                                 ) : (
                                     <User />
                                 )}
-                                {user.nickname}
+                                {user?.name}
                             </div>
                         ) : (
                             <>

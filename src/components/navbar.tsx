@@ -7,9 +7,11 @@ import { useEffect } from "react";
 import { MobileNavMenu } from "./mobile-nav-menu";
 import { Button } from "./ui/button";
 import UsernameMenu from "./username-menu";
+import { useAppSelector } from "@/redux/hook";
+import { selectAuth } from "@/redux/features/authSlice";
 
 export default function Navbar() {
-    const { user, isLoading, error } = useUser();
+    const { isLoggedIn } = useAppSelector(selectAuth);
 
     return (
         <div className="shadow-md shadow-gray-200 py-4">
@@ -21,7 +23,7 @@ export default function Navbar() {
                     <MobileNavMenu />
                 </div>
                 <div className="hidden md:block">
-                    {user?.email ? (
+                    {isLoggedIn ? (
                         <UsernameMenu />
                     ) : (
                         <Link href={"/login"}>

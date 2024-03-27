@@ -17,6 +17,7 @@ import { Button } from "../ui/button";
 import { FormError } from "./form-error";
 import { useSignUp } from "@/api-services/userApi";
 import { FaSpinner } from "react-icons/fa";
+import Link from "next/link";
 
 export default function SignUpForm() {
     const { createUser, isError, isSuccess, isPending } = useSignUp();
@@ -39,12 +40,15 @@ export default function SignUpForm() {
         console.log({ res });
     };
     return (
-        <div className="">
+        <div className="my-auto">
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(handleSignUp)}
                     className="space-y-6 max-w-[400px] border shadow-md p-6 rounded-lg mx-auto"
                 >
+                    <h2 className="text-2xl text-center text-orange-500 font-bold">
+                        Sign up
+                    </h2>
                     <div className="space-y-4">
                         <FormField
                             control={form.control}
@@ -123,6 +127,14 @@ export default function SignUpForm() {
                         )}
                         Sign Up
                     </Button>
+                    <p className="text-center text-muted-foreground text-sm">
+                        Already have an account?{" "}
+                        <Link href="/login">
+                            <Button variant="link" className="p-0">
+                                login
+                            </Button>
+                        </Link>
+                    </p>
                 </form>
             </Form>
         </div>
